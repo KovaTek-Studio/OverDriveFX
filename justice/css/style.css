@@ -225,7 +225,7 @@ h1, h2, h3, h4, h5, h6, figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+ display: inline;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -295,7 +295,7 @@ h1, h2, h3, h4, h5, h6, figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
@@ -702,13 +702,13 @@ h1, h2, h3, h4, h5, h6, figure {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 .gtco-social-icons li a {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
   color: #7f03f2;
   padding-left: 10px;
   padding-right: 10px;
@@ -855,7 +855,7 @@ form label {
   display: -moz-inline-stack;
   display: inline-block;
   zoom: 1;
-  *display: inline;
+  display: inline;
 }
 @media screen and (max-width: 768px) {
   #gtco-footer .copyright .pull-left,
@@ -1327,6 +1327,9 @@ form label {
   max-width: 320px;
   box-sizing: border-box;
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .feature-card:hover {
@@ -1343,11 +1346,12 @@ form label {
 .feature-card h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: #ffffff;
 }
 
 .feature-card p {
   font-size: 0.95rem;
-  color: #444;
+  color: #ffffff;
   margin-bottom: 1rem;
 }
 
@@ -1359,6 +1363,7 @@ form label {
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
+  margin-top: auto;
 }
 
 /* Responsive Layout */

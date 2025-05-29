@@ -19,7 +19,8 @@
   z-index: 1043;
   position: fixed;
   outline: none !important;
-  -webkit-backface-visibility: hidden; }
+  -webkit-backface-visibility: hidden; 
+  backface-visibility: hidden;}
 
 .mfp-container {
   text-align: center;
@@ -109,6 +110,7 @@ button.mfp-close, button.mfp-arrow {
   background: transparent;
   border: 0;
   -webkit-appearance: none;
+  appearance: none;
   display: block;
   outline: none;
   padding: 0;
