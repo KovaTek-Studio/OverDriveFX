@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Testimonio</title>
+</head>
+<body>
+  <h1>📝 Nuevo Testimonio</h1>
+  <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label for="nombre">Nombre:</label><br>
+    <input type="text" id="nombre" name="nombre" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="texto">Testimonio:</label><br>
+    <textarea id="texto" name="texto" rows="4" required></textarea><br><br>
+
+    <label for="rating">Rating (1–5):</label><br>
+    <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+
+    <label for="fecha">Fecha (ISO, opcional):</label><br>
+    <input type="datetime-local" id="fecha" name="fecha"><br><br>
+
+    {% comment %} <label for="imagenes">Imágenes (opcional):</label><br>
+    <input type="file" id="imagenes" name="imagenes" multiple accept="image/*"><br><br> {% endcomment %}
+
+    <button type="submit">Crear</button>
+  </form>
+</body>
+</html>
