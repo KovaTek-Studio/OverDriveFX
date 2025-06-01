@@ -502,6 +502,8 @@ h1, h2, h3, h4, h5, h6, figure {
 #gtco-contact {
   padding: 7em 0;
   clear: both;
+  padding-top: 1rem;
+  margin-top: 0;
 }
 
 #gtco-about .img-shadow {
@@ -808,6 +810,7 @@ form label {
 #gtco-footer {
   padding-top: 30px;
   background: #fafafa;
+  color: #000;
 }
 #gtco-footer .gtco-footer-links {
   padding: 0;
@@ -1311,29 +1314,31 @@ form label {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 2rem;
-  max-width: 1200px;
+  gap: 20px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1.5rem 1rem;
 }
 
 .feature-card {
   background: rgba(29, 25, 25, 0.7);
   border-radius: 10px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-  padding: 1.5rem;
+  padding: 1rem;
   text-align: center;
-  flex: 1 1 100%;
-  max-width: 320px;
+  flex: 1 1 calc(22% - 20px); /* 4 per row */
+  max-width: calc(22% - 20px);
   box-sizing: border-box;
   transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: justify;
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
+  
 }
 
 .feature-card img {
@@ -1347,12 +1352,18 @@ form label {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
   color: #ffffff;
+  justify-content: center;
+  text-align: center;
 }
 
 .feature-card p {
   font-size: 0.95rem;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 0.8rem;
+  text-align: center;
+  text-justify: inter-word;
+  line-height: 1.4;
+  justify-content: center;
 }
 
 .feature-card .btn {
@@ -1372,3 +1383,135 @@ form label {
     flex: 1 1 calc(33.333% - 2rem);
   }
 }
+
+@media (max-width: 1024px) {
+  .feature-card {
+    flex: 1 1 calc(50% - 20px); /* 2 por fila en tablets */
+    max-width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .feature-card {
+    flex: 1 1 100%; /* 1 por fila en celulares */
+    max-width: 100%;
+  }
+}
+
+.boton-flotante {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background-color: #25D366;
+  color: white;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 28px;
+  box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.boton-flotante:hover {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.otros-servicios-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  background: rgba(29, 25, 25, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+}
+
+.otros-servicios-titulo {
+  flex: 0 0 auto;
+}
+
+.otros-servicios-titulo h2 {
+  font-size: 1.8rem;
+  color: white;
+  margin: 0;
+}
+
+.otros-servicios-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: stretch;
+}
+
+.btn-otros {
+  background: #1223c3;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+  transition: background 0.3s ease;
+  width: 100%;
+  max-width: 400px; /* Limita el ancho máximo del botón */
+}
+
+.btn-otros:hover {
+  background: #005bb5;
+}
+
+@media (max-width: 768px) {
+  .otros-servicios-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .otros-servicios-botones {
+    align-items: center;
+  }
+}
+
+.cta-section2 {
+  background: white;
+  color: #fff;
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 1000px;
+}
+
+.cta-content2 h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.btn-cta2 {
+  background: #1223c3;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-cta2:hover {
+  background: #002967;
+  color: #fff;
+}
+
+
