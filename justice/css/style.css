@@ -186,7 +186,7 @@ h1, h2, h3, h4, h5, h6, figure {
   height: 0;
   width: 0;
   position: absolute;
-  pointer-events: none;
+  pointer-events: ;
   border-bottom-color: #fff;
   border-width: 8px;
   margin-left: -8px;
@@ -217,6 +217,7 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .gtco-nav ul li.btn-cta a {
   color: #fff;
+  pointer-events: auto;
 }
 .gtco-nav ul li.btn-cta a span {
   border: none !important;
@@ -233,10 +234,15 @@ h1, h2, h3, h4, h5, h6, figure {
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
   border-radius: 30px;
+  position: relative;
+  z-index: 1000;
+  pointer-events: auto;
 }
 .gtco-nav ul li.btn-cta a:hover span {
   background: #7f03f2;
   color: #fff;
+  pointer-events: auto;
+  
 }
 .gtco-nav ul li.active > a {
   color: #fff !important;
@@ -268,12 +274,14 @@ h1, h2, h3, h4, h5, h6, figure {
 }
 .gtco-nav.scrolled ul li.btn-cta a {
   color: #fff;
+  pointer-events: auto;
 }
 .gtco-nav.scrolled ul li.btn-cta a span {
   border: none !important;
   background: #7f03f2;
   padding: 4px 20px;
   color: #fff;
+  pointer-events: auto;
 }
 .gtco-nav.scrolled #gtco-logo em, .gtco-nav.scrolled #gtco-logo a {
   color: #000;
@@ -613,6 +621,11 @@ h1, h2, h3, h4, h5, h6, figure {
 #gtco-our-team .gtco-team .img-shadow img {
   top: -20px;
   left: -20px;
+}
+
+#gtco-our-team {
+  margin-top: 0;
+  padding-top: 1rem;
 }
 
 #gtco-contact .heading {
@@ -1467,7 +1480,8 @@ form label {
 }
 
 .btn-otros:hover {
-  background: #005bb5;
+  background: #002967;
+  color: #fff;
 }
 
 @media (max-width: 768px) {
@@ -1514,4 +1528,11 @@ form label {
   color: #fff;
 }
 
+.btn-cta {
+  position: relative;
+  z-index: 1000;
+}
 
+.fh5co-slider-outer {
+  margin-top: -40px; /* Ajustá el valor según lo que necesites */
+}
