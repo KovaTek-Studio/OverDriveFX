@@ -6,7 +6,9 @@
   font-style: normal;
 }
 html {
+  
   font-size: 18px; /* o 16px si querés algo más estándar */
+
 }
 /* =======================================================
 *
@@ -20,6 +22,9 @@ body {
   line-height: 1.8;
   color: #ffffff;
   background: #2a2d34;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #page {
@@ -289,6 +294,7 @@ h1, h2, h3, h4, h5, h6, figure {
 
 #gtco-hero .gtco-video-link a {
   color: rgba(255, 255, 255, 0.5);
+  
 }
 #gtco-hero .gtco-video-link a i {
   font-size: 78px;
@@ -311,6 +317,20 @@ h1, h2, h3, h4, h5, h6, figure {
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
+  min-height: 100vh;
+}
+
+#gtco-hero .display-t {
+  display: table;
+  width: 100%;
+  height: 100%;
+}
+
+#gtco-hero .display-tc {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  padding: 1rem;
 }
 #gtco-hero .gtco-video-link a:hover {
   color: white;
@@ -333,6 +353,9 @@ h1, h2, h3, h4, h5, h6, figure {
     width: 100%;
   }
 }
+
+
+
 
 #gtco-header,
 #gtco-counter,
