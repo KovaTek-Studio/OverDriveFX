@@ -45,6 +45,6 @@ urlpatterns = [
     path('contact/', contact_list, name='contact'),
     path('contact/admin', contact_admin, name='contact-admin'),
 
-    #Logi
+    #Login
     path('login/', LoginView.as_view(template_name = 'login.html'), name='login')
 ]
