@@ -22,15 +22,24 @@ from main.views.testimonial.testimonial_create import testimonial_create
 from main.views.testimonial.testimonial_admin import testimonial_admin
 from main.views.testimonial.testimonial_delete import testimonial_delete
 from main.views.testimonial.testimonial_edit import testimonial_edit
+from main.views.contactLinks.contact_list import contact_list
+from main.views.contactLinks.contact_admin import contact_admin
 
 
 app_name = "main"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
+
+    # Testimonials
     path('testimonial/', testimonial_list, name='testimonial'),
     path('testimonial/create', testimonial_create, name='testimonial-create'),
     path('testimonial/admin', testimonial_admin, name='testimonial-admin'),
     path("<str:pk>/delete/", testimonial_delete, name="testimonial-delete"),
-      path("<str:pk>/edit/", testimonial_edit,   name="testimonial-edit")
+    path("<str:pk>/edit/", testimonial_edit,   name="testimonial-edit"),
+
+    # Contacts
+    path('contact/', contact_list, name='contact'),
+    path('contact/admin', contact_admin, name='contact-admin')
+
 ]
