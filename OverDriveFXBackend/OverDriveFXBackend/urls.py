@@ -24,6 +24,9 @@ from main.views.testimonial.testimonial_delete import testimonial_delete
 from main.views.testimonial.testimonial_edit import testimonial_edit
 from main.views.contactLinks.contact_list import contact_list
 from main.views.contactLinks.contact_admin import contact_admin
+from main import views
+from django.contrib.auth.views import LoginView
+
 
 
 app_name = "main"
@@ -40,6 +43,8 @@ urlpatterns = [
 
     # Contacts
     path('contact/', contact_list, name='contact'),
-    path('contact/admin', contact_admin, name='contact-admin')
+    path('contact/admin', contact_admin, name='contact-admin'),
 
+    #Logi
+    path('login/', LoginView.as_view(template_name = 'login.html'), name='login')
 ]

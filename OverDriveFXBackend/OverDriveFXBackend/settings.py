@@ -128,3 +128,4 @@ MONGODB_CONFIG = {
     'PORT': 27017,
     'DB_NAME': 'overdrivefx'
 }
+LOGIN_REDIRECT_URL = "home"
