@@ -121,4 +121,11 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Parametro DB mongo
+MONGODB_CONFIG = {
+    'HOST': 'localhost',
+    'PORT': 27017,
+    'DB_NAME': 'overdrivefx'
+}
 LOGIN_REDIRECT_URL = "home"

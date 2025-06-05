@@ -1,0 +1,44 @@
+<!-- templates/testimonial-edit.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Testimonio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h1 class="mb-4">Editar Testimonio</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" value="{{ testimonial.nombre }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" name="email" class="form-control" value="{{ testimonial.email }}" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Texto</label>
+        <textarea name="texto" class="form-control" rows="4" required>{{ testimonial.texto }}</textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Rating</label>
+        <input type="number" name="rating" class="form-control" min="1" max="5" value="{{ testimonial.rating }}" required>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" name="aprobado" id="aprobado" {% if testimonial.aprobado %}checked{% endif %}>
+        <label class="form-check-label" for="aprobado">Aprobado</label>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Fecha</label>
+        <input type="datetime-local" name="fecha" class="form-control"
+               value="{{ testimonial.fecha|date:"Y-m-d\\TH:i" }}" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar cambios</button>
+      <a href="{% url 'testimonial-admin' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+  </div>
+</body>
+</html>
