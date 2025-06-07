@@ -5,11 +5,34 @@
   <meta charset="UTF-8">
   <title>Editar Testimonio</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .thumb-img-edit {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 8px;
+      border-radius: 4px;
+    }
+    .image-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    #new-images-preview img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 8px;
+    }
+  </style>
 </head>
 <body class="bg-light">
   <div class="container mt-5">
     <h1 class="mb-4">Editar Testimonio</h1>
-    <form method="post">
+    <form  id="testimonialForm" method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="mb-3">
         <label class="form-label">Nombre</label>
@@ -36,9 +59,94 @@
         <input type="datetime-local" name="fecha" class="form-control"
                value="{{ testimonial.fecha|date:"Y-m-d\\TH:i" }}" required>
       </div>
-      <button type="submit" class="btn btn-primary">Guardar cambios</button>
-      <a href="{% url 'testimonial-admin' %}" class="btn btn-secondary">Cancelar</a>
+
+      <div class="mb-3">
+        <label class="form-label">Imágenes</label>
+        <div class="image-line">
+          <!-- 1) Imágenes existentes con checkbox -->
+          {% for img in testimonial.imagenes %}
+          <div class="position-relative">
+            <img src="{{ img }}" alt="Existente {{ forloop.counter }}" class="thumb-img-edit">
+            <div class="form-check position-absolute top-0 start-0">
+              <input class="form-check-input" type="checkbox" name="remove_images" value="{{ img }}" id="rm{{ forloop.counter }}">
+              <label class="form-check-label text-white small" for="rm{{ forloop.counter }}">X</label>
+            </div>
+          </div>
+          {% endfor %}
+
+          <!-- 2) Aquí van las nuevas miniaturas -->
+          <div id="new-images-preview"></div>
+
+          <!-- 3) Botón “＋” para elegir nuevas -->
+          <button type="button" id="addImageBtn" class="btn btn-outline-secondary btn-sm">
+            ＋
+          </button>
+
+          <!-- input oculto -->
+          <input type="file" id="newImagesInput" name="imagenes" accept="image/*" multiple hidden>
+        </div>
+      </div>
+
+      <!-- botones guardar/cancelar -->
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <a href="{% url 'testimonial-admin' %}" class="btn btn-secondary">Cancelar</a>
+      </div>
     </form>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const fileInput = document.getElementById('newImagesInput');
+    const preview = document.getElementById('new-images-preview');
+    const form = document.getElementById('testimonialForm');
+    const addImageBtn = document.getElementById('addImageBtn');
+
+    let accumulatedFiles = [];
+
+    addImageBtn.onclick = () => fileInput.click();
+
+    fileInput.addEventListener('change', event => {
+      const files = Array.from(event.target.files);
+      files.forEach(file => {
+        accumulatedFiles.push(file);
+
+        const reader = new FileReader();
+        reader.onload = e => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+      });
+
+      // Reset para permitir volver a seleccionar los mismos archivos
+      fileInput.value = "";
+    });
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      // Agregamos las imágenes acumuladas
+      accumulatedFiles.forEach(file => {
+        formData.append('imagenes', file); // Django usa getlist('imagenes')
+      });
+
+      fetch(window.location.href, {
+        method: 'POST',
+        body: formData
+      }).then(res => {
+        if (res.redirected) {
+          window.location.href = res.url;
+        } else {
+          res.text().then(html => document.body.innerHTML = html);
+        }
+      }).catch(err => {
+        console.error("Error al guardar:", err);
+        alert("Error al guardar el testimonio. Intenta de nuevo.");
+      });
+    });
+  </script>
 </body>
 </html>

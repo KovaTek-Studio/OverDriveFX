@@ -129,3 +129,7 @@ MONGODB_CONFIG = {
     'DB_NAME': 'overdrivefx'
 }
 LOGIN_REDIRECT_URL = "home"
+
+# Carpetas para media (imágenes)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

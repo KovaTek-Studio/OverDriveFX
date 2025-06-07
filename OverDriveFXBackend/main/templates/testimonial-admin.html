@@ -5,6 +5,33 @@
     <meta charset="UTF-8">
     <title>Admin - Testimonios</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .thumb-img {
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          margin-right: 5px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: transform 0.2s ease-in-out;
+        }
+        .thumb-img:hover {
+            transform: scale(1.2);
+          }
+
+          .modal-dialog {
+            max-width: 90%;
+          }
+          .modal-body {
+            padding: 0;
+            text-align: center;
+          }
+          .modal-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+          }
+    </style>
 </head>
 <body class="bg-light">
 
@@ -19,6 +46,7 @@
                 <th>Fecha</th>
                 <th>Texto</th>
                 <th>Rating</th>
+                <th>Imágenes</th>
                 <th>Aprobado</th>
                 <th>Acciones</th>
             </tr>
@@ -31,6 +59,17 @@
                     <td>{{ testimonial.fecha|date:"Y-m-d H:i" }}</td>
                     <td>{{ testimonial.texto }}</td>
                     <td>{{ testimonial.rating }}</td>
+                    <td>
+                        {% if testimonial.imagenes %}
+                            <div class="d-flex">
+                            {% for img in testimonial.imagenes %}
+                                <img src="{{ img }}" alt="Imagen" class="thumb-img" data-bs-toggle="modal" data-bs-target="#imgModal" data-img-src="{{ img }}">
+                            {% endfor %}
+                            </div>
+                        {% else %}
+                            <span class="text-muted"></span>
+                        {% endif %}
+                    </td>
                     <td>
                         {% if testimonial.aprobado %}
                             <span class="badge bg-success">Sí</span>
@@ -54,6 +93,32 @@
         </tbody>
     </table>
 </div>
+
+<!-- Modal para vista ampliada -->
+<div class="modal fade" id="imgModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">  <!-- modal-lg -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Imagen ampliada</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <img src="" id="modalImg" class="modal-img" alt="Imagen ampliada">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Bootstrap JS Bundle + script para el modal -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Cuando se abra el modal, actualiza la imagen
+  document.getElementById('imgModal').addEventListener('show.bs.modal', function (event) {
+    const thumb = event.relatedTarget;            // miniatura clicada
+    const imgSrc = thumb.getAttribute('data-img-src');
+    document.getElementById('modalImg').src = imgSrc;
+  });
+</script>
 
 </body>
 </html>

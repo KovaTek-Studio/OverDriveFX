@@ -1,6 +1,8 @@
 # main/views/testimonial/testimonial_edit.py
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_http_methods
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from bson import ObjectId
 from datetime import datetime
 from main.utils.dbconnect import connect_db
@@ -15,6 +17,7 @@ def testimonial_edit(request, pk):
     # Prepara datos para el formulario
     doc["id"]    = str(doc["_id"])
     doc["fecha"] = doc["fecha"].isoformat()
+    doc.setdefault("imagenes", [])  # Si no tiene, inicializa lista
 
     if request.method == "POST":
         # Lee datos, usando valor actual si no viene
@@ -24,6 +27,17 @@ def testimonial_edit(request, pk):
         rating  = int(request.POST.get("rating", doc.get("rating")))
         aprobado = request.POST.get("aprobado") == "on"
 
+        
+        # Empieza con las imágenes actuales
+        imagenes = list(doc["imagenes"])
+
+        # Procesa nuevas imágenes y las añade
+        for fichero in request.FILES.getlist("imagenes"):
+            timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+            filename  = f"testimonials/{timestamp}_{fichero.name}"
+            path      = default_storage.save(filename, ContentFile(fichero.read()))
+            imagenes.append(default_storage.url(path))
+
         colec.update_one(
             {"_id": ObjectId(pk)},
             {"$set": {
@@ -32,7 +46,8 @@ def testimonial_edit(request, pk):
                 "texto":    texto,
                 "rating":   rating,
                 "aprobado": aprobado,
-                "fecha":    datetime.fromisoformat(request.POST.get("fecha", doc["fecha"]))
+                "fecha":    datetime.fromisoformat(request.POST.get("fecha", doc["fecha"])),
+                "imagenes": imagenes
             }}
         )
         return redirect('testimonial-admin')
