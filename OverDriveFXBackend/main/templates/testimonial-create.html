@@ -1,33 +1,123 @@
+<!-- templates/testimonial-create.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Crear Testimonio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nuevo Testimonio</title>
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" 
+    rel="stylesheet">
 </head>
-<body>
-  <h1>📝 Nuevo Testimonio</h1>
-  <form action="" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+<body class="bg-light">
 
-    <label for="nombre">Nombre:</label><br>
-    <input type="text" id="nombre" name="nombre" required><br><br>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'testimonial-admin' %}">
+      ← Volver
+    </a>
+    <span class="navbar-text text-white">
+      Crear Testimonio
+    </span>
+  </div>
+</nav>
+                                 
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">📝 Nuevo Testimonio</h5>
+        </div>
+        <div class="card-body">
+          <form action="" method="post" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
 
-    <label for="email">Email:</label><br>
-    <input type="email" id="email" name="email" required><br><br>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" 
+                     placeholder="Ingresa tu nombre" required>
+              <div class="invalid-feedback">
+                El nombre es obligatorio.
+              </div>
+            </div>
 
-    <label for="texto">Testimonio:</label><br>
-    <textarea id="texto" name="texto" rows="4" required></textarea><br><br>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" name="email" 
+                     placeholder="ejemplo@dominio.com" required>
+              <div class="invalid-feedback">
+                Debes ingresar un correo válido.
+              </div>
+            </div>
 
-    <label for="rating">Rating (1–5):</label><br>
-    <input type="number" id="rating" name="rating" min="1" max="5" required><br><br>
+            <div class="mb-3">
+              <label for="texto" class="form-label">Testimonio</label>
+              <textarea class="form-control" id="texto" name="texto" rows="4" 
+                        placeholder="Cuenta tu experiencia..." required></textarea>
+              <div class="invalid-feedback">
+                El testimonio no puede estar vacío.
+              </div>
+            </div>
 
-    <label for="fecha">Fecha (ISO, opcional):</label><br>
-    <input type="datetime-local" id="fecha" name="fecha"><br><br>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="rating" class="form-label">Rating (1–5)</label>
+                <select class="form-select" id="rating" name="rating" required>
+                  <option value="" disabled selected>Selecciona...</option>
+                  {% for i in "12345" %}
+                    <option value="{{ i }}">{{ i }} ⭐</option>
+                  {% endfor %}
+                </select>
+                <div class="invalid-feedback">
+                  Selecciona un rating.
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="fecha" class="form-label">Fecha (opcional)</label>
+                <input type="datetime-local" class="form-control" id="fecha" name="fecha">
+              </div>
+            </div>
 
-    {% comment %} <label for="imagenes">Imágenes (opcional):</label><br>
-    <input type="file" id="imagenes" name="imagenes" multiple accept="image/*"><br><br> {% endcomment %}
+            <!-- Si habilitas imágenes -->
+           
+            <div class="mb-3">
+              <label for="imagenes" class="form-label">Imágenes</label>
+              <input class="form-control" type="file" id="imagenes" name="imagenes" 
+                     accept="image/*" multiple required>
+            </div>
+            
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg">
+                Crear Testimonio
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <button type="submit">Crear</button>
-  </form>
+<script 
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+<script>
+  // Validación básica de Bootstrap
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+
 </body>
 </html>
